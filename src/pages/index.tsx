@@ -89,7 +89,7 @@ export default function Home() {
         </div>
         <div className="w-full flex absolute bottom-0">
           <p className="text-white m-auto text-sm py-3">
-            Powered by Mo& Co (PTY) Ltd
+            Powered by Mo & Co (PTY) Ltd
           </p>
         </div>
       </main>
