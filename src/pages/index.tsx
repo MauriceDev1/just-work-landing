@@ -96,7 +96,7 @@ export default function Home() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="please enetr your email address"
+                placeholder="please enter your email address"
                 className="w-full placeholder:text-gray-100 text-white pl-3 pr-28 h-11 outline-none rounded py-3 bg-gray-700 mt-5"
               />
               <button
