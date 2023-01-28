@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"tailwindcss --input ./app/globals.css --watch\"",
-    "build": "tailwindcss ./app/globals.csss && next build",
+    "build": "tailwindcss ./app/globals.css && next build",
     "start": "next start",
     "lint": "next lint"
   },
