@@ -7,6 +7,7 @@ import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { firestore} from '@/firebase/clientApp'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BsBatteryCharging } from 'react-icons/bs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -110,9 +111,12 @@ export default function Home() {
           </p>
         </div>
         <div className="w-full flex absolute bottom-0">
-          <p className="text-white m-auto text-sm py-3">
-            Powered by Mo & Co (PTY) Ltd
-          </p>
+          <div className='flex items-center m-auto gap-3 py-5'>
+            <BsBatteryCharging className='text-white'/> 
+            <p className="text-white m-auto text-sm">
+              Powered by Mo & Co (PTY) Ltd
+            </p>
+          </div>
         </div>
       </main>
     </>
