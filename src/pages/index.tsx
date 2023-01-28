@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Logo from '@/assets/img/logo.png'
 import { Inter } from '@next/font/google'
 import Image from 'next/image';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { firestore} from '@/firebase/clientApp'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [email, setEmail] = React.useState("");
+  const [ email, setEmail ] = React.useState("");
+  const [ emailList, setEmailList ] = React.useState<string[]>([]);
   const [loading,setLoading] = React.useState(false);
 
   const notifySuccess = (e: string) => {
@@ -25,10 +26,31 @@ export default function Home() {
       position: toast.POSITION.TOP_CENTER
     });
   }
+
+  const getAllEmaills = async () => {
+    const emailArray: string[] = []
+    const q = query(collection(firestore, "email_list"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      emailArray.push(doc.data().email);
+    });
+    setEmailList(emailArray);
+  }
+
+  useEffect(() => {
+    getAllEmaills();
+  },[])
   
   const handelEmail = async() => {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     if ( re.test(email) ) {
+      if(emailList.includes(email)){
+        notifyError(`${email} already exist`)
+        return
+      }
       setLoading(true);
       const docRef = await addDoc(collection(firestore, "email_list"), {
         email
